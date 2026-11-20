@@ -1,0 +1,77 @@
+[
+  {
+    "nome": "Idoso hipertenso com dor forte no peito (certezas combinadas)",
+    "entradas": {"consciencia": "alerta", "respiracao": "normal", "dor_toracica": "tipica", "sinais_avc": "nao", "sangramento": "nao", "febre": "nao", "dor_abdominal": "nao", "trauma": "nenhum", "grupo_risco": "sim"},
+    "esperado": ["quadro=suspeita_cardiaca", "classificacao=vermelho", "encaminhamento=sala_de_emergencia", "aviso=acionar_equipe_emergencia"],
+    "classificacao_final": "vermelho"
+  },
+  {
+    "nome": "Adulto com sinais de AVC",
+    "entradas": {"consciencia": "alerta", "respiracao": "normal", "dor_toracica": "nao", "sinais_avc": "sim", "sangramento": "nao", "febre": "nao", "dor_abdominal": "nao", "trauma": "nenhum", "grupo_risco": "nao"},
+    "esperado": ["quadro=suspeita_avc", "classificacao=vermelho", "encaminhamento=sala_de_emergencia"],
+    "classificacao_final": "vermelho"
+  },
+  {
+    "nome": "Falta de ar intensa",
+    "entradas": {"consciencia": "alerta", "respiracao": "falta_de_ar_intensa", "dor_toracica": "nao", "sinais_avc": "nao", "sangramento": "nao", "febre": "nao", "dor_abdominal": "nao", "trauma": "nenhum", "grupo_risco": "nao"},
+    "esperado": ["quadro=desconforto_respiratorio_grave", "classificacao=vermelho"],
+    "classificacao_final": "vermelho"
+  },
+  {
+    "nome": "Corte com sangramento intenso",
+    "entradas": {"consciencia": "alerta", "respiracao": "normal", "dor_toracica": "nao", "sinais_avc": "nao", "sangramento": "intenso", "febre": "nao", "dor_abdominal": "nao", "trauma": "nenhum", "grupo_risco": "nao"},
+    "esperado": ["quadro=hemorragia_grave", "classificacao=vermelho", "aviso=comprimir_sangramento"],
+    "classificacao_final": "vermelho"
+  },
+  {
+    "nome": "Acidente de moto, paciente consciente",
+    "entradas": {"consciencia": "alerta", "respiracao": "normal", "dor_toracica": "nao", "sinais_avc": "nao", "sangramento": "nao", "febre": "nao", "dor_abdominal": "nao", "trauma": "grave", "grupo_risco": "nao"},
+    "esperado": ["quadro=trauma_grave", "classificacao=laranja", "encaminhamento=consultorio_prioritario", "aviso=imobilizar_paciente"],
+    "nao_esperado": ["classificacao=vermelho"],
+    "classificacao_final": "laranja"
+  },
+  {
+    "nome": "Queda com suspeita de fratura no braço",
+    "entradas": {"consciencia": "alerta", "respiracao": "normal", "dor_toracica": "nao", "sinais_avc": "nao", "sangramento": "nao", "febre": "nao", "dor_abdominal": "nao", "trauma": "deformidade", "grupo_risco": "nao"},
+    "esperado": ["quadro=suspeita_fratura", "classificacao=amarelo", "encaminhamento=consultorio_prioritario"],
+    "classificacao_final": "amarelo"
+  },
+  {
+    "nome": "Febre moderada em adulto sem fator de risco",
+    "entradas": {"consciencia": "alerta", "respiracao": "normal", "dor_toracica": "nao", "sinais_avc": "nao", "sangramento": "nao", "febre": "moderada", "dor_abdominal": "nao", "trauma": "nenhum", "grupo_risco": "nao"},
+    "esperado": ["quadro=sindrome_febril", "classificacao=verde", "encaminhamento=consulta_ambulatorial"],
+    "classificacao_final": "verde"
+  },
+  {
+    "nome": "Febre moderada em idoso (fator de risco sobe a prioridade)",
+    "entradas": {"consciencia": "alerta", "respiracao": "normal", "dor_toracica": "nao", "sinais_avc": "nao", "sangramento": "nao", "febre": "moderada", "dor_abdominal": "nao", "trauma": "nenhum", "grupo_risco": "sim"},
+    "esperado": ["quadro=sindrome_febril", "classificacao=amarelo", "encaminhamento=consultorio_prioritario"],
+    "nao_esperado": ["classificacao=verde"],
+    "classificacao_final": "amarelo"
+  },
+  {
+    "nome": "Febre alta com confusão (conflito: vale a classificação mais urgente)",
+    "entradas": {"consciencia": "confuso", "respiracao": "normal", "dor_toracica": "nao", "sinais_avc": "nao", "sangramento": "nao", "febre": "alta", "dor_abdominal": "nao", "trauma": "nenhum", "grupo_risco": "nao"},
+    "esperado": ["quadro=febre_com_alteracao", "classificacao=laranja", "classificacao=verde"],
+    "classificacao_final": "laranja"
+  },
+  {
+    "nome": "Dor leve no peito em adulto saudável",
+    "entradas": {"consciencia": "alerta", "respiracao": "normal", "dor_toracica": "leve", "sinais_avc": "nao", "sangramento": "nao", "febre": "nao", "dor_abdominal": "nao", "trauma": "nenhum", "grupo_risco": "nao"},
+    "esperado": ["quadro=dor_toracica_inespecifica", "classificacao=amarelo"],
+    "classificacao_final": "amarelo"
+  },
+  {
+    "nome": "Acompanhante não sabe se há sinais de AVC (resposta 'não sei': certeza menor, mas alerta mantido)",
+    "entradas": {"consciencia": "alerta", "respiracao": "normal", "dor_toracica": "nao", "sinais_avc": "sim", "sangramento": "nao", "febre": "nao", "dor_abdominal": "nao", "trauma": "nenhum", "grupo_risco": "nao"},
+    "cf_entradas": {"sinais_avc": 0.5},
+    "esperado": ["quadro=suspeita_avc", "classificacao=vermelho"],
+    "classificacao_final": "vermelho"
+  },
+  {
+    "nome": "Nenhum sinal de alerta (exceção: sem conclusão)",
+    "entradas": {"consciencia": "alerta", "respiracao": "normal", "dor_toracica": "nao", "sinais_avc": "nao", "sangramento": "nao", "febre": "nao", "dor_abdominal": "nao", "trauma": "nenhum", "grupo_risco": "nao"},
+    "esperado": [],
+    "sem_conclusao": true
+  }
+]
