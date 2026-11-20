@@ -8,6 +8,8 @@ Protótipo de sistema especialista para o pronto atendimento de uma clínica fic
 
 Contexto de negócio completo: [docs/contexto_negocio.md](docs/contexto_negocio.md).
 
+Módulos e tasks: [docs/modulos_e_tasks.md](docs/modulos_e_tasks.md).
+
 ## Como rodar
 
 Requer Python 3.10 ou superior.
@@ -62,8 +64,8 @@ Todo integrante precisa entender **todos** os módulos: no vídeo, o professor p
 
 | Módulo | O que é | Responsável | Status |
 | --- | --- | --- | --- |
-| M0 | Repositório, estrutura, README | ______ | estrutura pronta |
-| M1 | Base de conhecimento (20 regras, fatos, catálogo) | ______ | rascunho pronto, falta revisão do grupo |
+| M0 | Repositório, estrutura, README | ______ | concluído |
+| M1 | Base de conhecimento (20 regras, fatos, catálogo) | ______ | concluído |
 | M2 | Motor de inferência (`motor.py`) | ______ | a fazer |
 | M3 | Explicação "como" e "por quê" (`explicacao.py`) | ______ | a fazer |
 | M4 | Interface de terminal (`terminal.py`) | ______ | a fazer |
