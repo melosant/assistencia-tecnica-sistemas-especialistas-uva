@@ -1,0 +1,41 @@
+{
+  "observacao": "Textos e tempos fictícios, inspirados em protocolos de classificação de risco por cores. Alterar este arquivo muda as respostas do sistema sem mexer no código.",
+  "ordem_urgencia": ["vermelho", "laranja", "amarelo", "verde"],
+  "classificacoes": {
+    "vermelho": {"nome": "Emergência", "tempo_max_espera_min": 0},
+    "laranja": {"nome": "Muito urgente", "tempo_max_espera_min": 10},
+    "amarelo": {"nome": "Urgente", "tempo_max_espera_min": 60},
+    "verde": {"nome": "Pouco urgente", "tempo_max_espera_min": 120}
+  },
+  "descricoes": {
+    "quadro": {
+      "rebaixamento_consciencia": "Rebaixamento do nível de consciência",
+      "desconforto_respiratorio_grave": "Desconforto respiratório grave",
+      "suspeita_cardiaca": "Suspeita de problema cardíaco agudo",
+      "suspeita_avc": "Suspeita de AVC",
+      "hemorragia_grave": "Hemorragia grave",
+      "trauma_grave": "Trauma grave",
+      "febre_com_alteracao": "Febre alta com alteração de consciência",
+      "dor_abdominal_intensa": "Dor abdominal intensa",
+      "suspeita_fratura": "Suspeita de fratura",
+      "dor_toracica_inespecifica": "Dor torácica leve a esclarecer",
+      "sindrome_febril": "Síndrome febril"
+    },
+    "classificacao": {
+      "vermelho": "Vermelho: emergência, atendimento imediato",
+      "laranja": "Laranja: muito urgente, atendimento em até 10 minutos",
+      "amarelo": "Amarelo: urgente, atendimento em até 60 minutos",
+      "verde": "Verde: pouco urgente, atendimento em até 120 minutos"
+    },
+    "encaminhamento": {
+      "sala_de_emergencia": "Encaminhar direto para a sala de emergência",
+      "consultorio_prioritario": "Encaminhar ao consultório médico com prioridade sobre a fila comum",
+      "consulta_ambulatorial": "Encaminhar à fila normal de consulta ambulatorial"
+    },
+    "aviso": {
+      "acionar_equipe_emergencia": "Acionar a equipe de emergência imediatamente",
+      "comprimir_sangramento": "Iniciar compressão direta do local do sangramento",
+      "imobilizar_paciente": "Manter o paciente imobilizado até a avaliação médica"
+    }
+  }
+}

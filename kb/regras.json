@@ -1,0 +1,140 @@
+{
+  "formato": {
+    "se": "Lista de condições (todas precisam valer). Cada condição é 'fato=valor'; use 'fato=v1|v2' para 'v1 OU v2' do mesmo fato.",
+    "entao": "Lista de conclusões, cada uma com o fato derivado e a certeza (cf) da regra, entre 0 e 1.",
+    "camada": "1 = sinais levam a um quadro de triagem; 2 = quadro leva à classificação de risco; 3 = classificação leva ao encaminhamento (usa só conclusões da camada 2).",
+    "certeza": "cf da condição = menor cf entre as condições; cf da conclusão = cf da condição x cf da regra. Se duas regras concluem o mesmo fato: cf = a + b x (1 - a).",
+    "conflito": "Várias classificações podem passar do limiar ao mesmo tempo. Vale a MAIS URGENTE (catalogo.json, ordem_urgencia): em caso de dúvida, o paciente sobe de nível, nunca desce."
+  },
+  "regras": [
+    {
+      "id": "R01", "camada": 1,
+      "se": ["consciencia=inconsciente"],
+      "entao": [{"fato": "quadro=rebaixamento_consciencia", "cf": 0.95}],
+      "justificativa": "Paciente desmaiado ou que não responde tem a consciência comprometida, o que é sempre um sinal de gravidade."
+    },
+    {
+      "id": "R02", "camada": 1,
+      "se": ["respiracao=falta_de_ar_intensa"],
+      "entao": [{"fato": "quadro=desconforto_respiratorio_grave", "cf": 0.9}],
+      "justificativa": "Falta de ar que impede de falar frases completas ou deixa os lábios arroxeados indica troca de oxigênio comprometida."
+    },
+    {
+      "id": "R03", "camada": 1,
+      "se": ["dor_toracica=tipica"],
+      "entao": [{"fato": "quadro=suspeita_cardiaca", "cf": 0.8}],
+      "justificativa": "Aperto forte no peito, que irradia para braço ou mandíbula com suor frio ou náusea, é o padrão clássico de problema cardíaco agudo."
+    },
+    {
+      "id": "R04", "camada": 1,
+      "se": ["dor_toracica=tipica", "grupo_risco=sim"],
+      "entao": [{"fato": "quadro=suspeita_cardiaca", "cf": 0.6}],
+      "justificativa": "Idade avançada ou doença crônica aumentam a chance de que a dor típica no peito seja de origem cardíaca."
+    },
+    {
+      "id": "R05", "camada": 1,
+      "se": ["sinais_avc=sim"],
+      "entao": [{"fato": "quadro=suspeita_avc", "cf": 0.9}],
+      "justificativa": "Boca torta, fala arrastada e fraqueza súbita de um lado são os sinais clássicos de AVC, em que cada minuto conta."
+    },
+    {
+      "id": "R06", "camada": 1,
+      "se": ["sangramento=intenso"],
+      "entao": [
+        {"fato": "quadro=hemorragia_grave", "cf": 0.9},
+        {"fato": "aviso=comprimir_sangramento", "cf": 0.9}
+      ],
+      "justificativa": "Sangramento de grande volume ou que não para com compressão pode levar a choque; a compressão local deve começar imediatamente."
+    },
+    {
+      "id": "R07", "camada": 1,
+      "se": ["trauma=grave"],
+      "entao": [
+        {"fato": "quadro=trauma_grave", "cf": 0.85},
+        {"fato": "aviso=imobilizar_paciente", "cf": 0.85}
+      ],
+      "justificativa": "Acidente de trânsito, queda de altura ou pancada na cabeça com vômito ou desmaio podem causar lesões internas ou na coluna; o paciente deve ser imobilizado."
+    },
+    {
+      "id": "R08", "camada": 1,
+      "se": ["febre=alta", "consciencia=confuso"],
+      "entao": [{"fato": "quadro=febre_com_alteracao", "cf": 0.8}],
+      "justificativa": "Febre alta com confusão mental pode indicar infecção grave que afeta o sistema nervoso ou o organismo todo."
+    },
+    {
+      "id": "R09", "camada": 1,
+      "se": ["dor_abdominal=intensa"],
+      "entao": [{"fato": "quadro=dor_abdominal_intensa", "cf": 0.75}],
+      "justificativa": "Dor intensa na barriga que não alivia pode indicar problema que exige avaliação médica rápida."
+    },
+    {
+      "id": "R10", "camada": 1,
+      "se": ["trauma=deformidade"],
+      "entao": [{"fato": "quadro=suspeita_fratura", "cf": 0.8}],
+      "justificativa": "Deformidade ou incapacidade de apoiar ou mexer o membro após uma queda sugere fratura."
+    },
+    {
+      "id": "R11", "camada": 1,
+      "se": ["dor_toracica=leve"],
+      "entao": [{"fato": "quadro=dor_toracica_inespecifica", "cf": 0.7}],
+      "justificativa": "Mesmo uma dor leve no peito não pode ser descartada sem avaliação médica."
+    },
+    {
+      "id": "R12", "camada": 1,
+      "se": ["febre=moderada|alta"],
+      "entao": [{"fato": "quadro=sindrome_febril", "cf": 0.8}],
+      "justificativa": "Febre de 37,8 °C ou mais indica um processo infeccioso ou inflamatório em curso."
+    },
+    {
+      "id": "R13", "camada": 2,
+      "se": ["quadro=rebaixamento_consciencia|desconforto_respiratorio_grave|suspeita_cardiaca|suspeita_avc|hemorragia_grave"],
+      "entao": [{"fato": "classificacao=vermelho", "cf": 0.95}],
+      "justificativa": "Estes quadros ameaçam a vida em minutos; exigem atendimento imediato."
+    },
+    {
+      "id": "R14", "camada": 2,
+      "se": ["quadro=trauma_grave|febre_com_alteracao|dor_abdominal_intensa"],
+      "entao": [{"fato": "classificacao=laranja", "cf": 0.85}],
+      "justificativa": "Quadros muito urgentes, com risco de piorar rápido; o paciente deve ser visto em poucos minutos."
+    },
+    {
+      "id": "R15", "camada": 2,
+      "se": ["quadro=suspeita_fratura|dor_toracica_inespecifica"],
+      "entao": [{"fato": "classificacao=amarelo", "cf": 0.8}],
+      "justificativa": "Casos urgentes, sem risco imediato à vida, mas que não devem esperar na fila comum."
+    },
+    {
+      "id": "R16", "camada": 2,
+      "se": ["quadro=sindrome_febril", "grupo_risco=sim"],
+      "entao": [{"fato": "classificacao=amarelo", "cf": 0.75}],
+      "justificativa": "Idosos, gestantes e pessoas com doença crônica pioram mais rápido com infecção; a febre sobe a prioridade."
+    },
+    {
+      "id": "R17", "camada": 2,
+      "se": ["quadro=sindrome_febril", "grupo_risco=nao"],
+      "entao": [{"fato": "classificacao=verde", "cf": 0.8}],
+      "justificativa": "Febre moderada em adulto sem fator de risco e sem sinais de alerta é pouco urgente."
+    },
+    {
+      "id": "R18", "camada": 3,
+      "se": ["classificacao=vermelho"],
+      "entao": [
+        {"fato": "encaminhamento=sala_de_emergencia", "cf": 0.95},
+        {"fato": "aviso=acionar_equipe_emergencia", "cf": 0.95}
+      ],
+      "justificativa": "Emergência: o paciente vai direto para a sala de emergência e a equipe deve ser acionada na hora, sem passar por fila."
+    },
+    {
+      "id": "R19", "camada": 3,
+      "se": ["classificacao=laranja|amarelo"],
+      "entao": [{"fato": "encaminhamento=consultorio_prioritario", "cf": 0.9}],
+      "justificativa": "Casos muito urgentes e urgentes passam na frente dos demais para o consultório médico, dentro do tempo máximo da cor."
+    },
+    {
+      "id": "R20", "camada": 3,
+      "se": ["classificacao=verde"],
+      "entao": [{"fato": "encaminhamento=consulta_ambulatorial", "cf": 0.9}],
+      "justificativa": "Caso pouco urgente segue a fila normal de consulta ambulatorial."
+    }
+  ]
+}
