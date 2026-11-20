@@ -1,0 +1,125 @@
+{
+  "empresa": {
+    "nome": "Clínica Vida Plena — Pronto Atendimento",
+    "segmento": "Prestação de serviços de saúde: pronto atendimento de uma clínica (triagem de pacientes adultos)",
+    "problema": "Nos horários de pico, a triagem feita pela recepção de enfermagem varia conforme o profissional: pacientes graves podem esperar enquanto casos leves são atendidos primeiro. O sistema especialista apoia a triagem com um protocolo padronizado: classifica o risco por cores, indica o encaminhamento e explica o raciocínio.",
+    "aviso_legal": "Protocolo simplificado e fictício, criado para fins acadêmicos. É uma ferramenta de apoio à triagem e não substitui a avaliação de um profissional de saúde. Em caso de dúvida, o sistema sempre privilegia o nível de maior urgência."
+  },
+  "config": {
+    "limiar_cf": 0.4,
+    "cf_resposta_nao_sei": 0.5,
+    "descricao": "Conclusões com certeza abaixo do limiar não são apresentadas como conclusão. Quando o usuário responde 'não sei', o fato de entrada entra com certeza 0.5 em vez de 1.0."
+  },
+  "entradas": [
+    {
+      "id": "consciencia",
+      "pergunta": "Como está o nível de consciência do paciente?",
+      "opcoes": [
+        {"valor": "alerta", "rotulo": "Alerta e responde normalmente"},
+        {"valor": "confuso", "rotulo": "Confuso ou muito sonolento"},
+        {"valor": "inconsciente", "rotulo": "Desmaiado ou não responde"}
+      ]
+    },
+    {
+      "id": "respiracao",
+      "pergunta": "Como está a respiração?",
+      "opcoes": [
+        {"valor": "normal", "rotulo": "Normal ou com falta de ar leve (consegue falar frases completas)"},
+        {"valor": "falta_de_ar_intensa", "rotulo": "Falta de ar intensa (não consegue falar frases completas ou lábios arroxeados)"}
+      ]
+    },
+    {
+      "id": "dor_toracica",
+      "pergunta": "O paciente sente dor ou aperto no peito?",
+      "opcoes": [
+        {"valor": "nao", "rotulo": "Não"},
+        {"valor": "leve", "rotulo": "Dor leve e localizada (pontada, piora ao tocar ou respirar)"},
+        {"valor": "tipica", "rotulo": "Aperto ou pressão forte, que pode ir para braço, mandíbula ou costas, com suor frio ou náusea"}
+      ]
+    },
+    {
+      "id": "sinais_avc",
+      "pergunta": "Há boca torta, fala arrastada ou fraqueza súbita em um lado do corpo?",
+      "opcoes": [
+        {"valor": "nao", "rotulo": "Não"},
+        {"valor": "sim", "rotulo": "Sim"}
+      ]
+    },
+    {
+      "id": "sangramento",
+      "pergunta": "Há sangramento?",
+      "opcoes": [
+        {"valor": "nao", "rotulo": "Não, ou pequeno e controlado"},
+        {"valor": "intenso", "rotulo": "Intenso (grande volume ou não para com compressão)"}
+      ]
+    },
+    {
+      "id": "febre",
+      "pergunta": "O paciente está com febre?",
+      "opcoes": [
+        {"valor": "nao", "rotulo": "Não"},
+        {"valor": "moderada", "rotulo": "Moderada (de 37,8 a 38,9 °C)"},
+        {"valor": "alta", "rotulo": "Alta (39 °C ou mais)"}
+      ]
+    },
+    {
+      "id": "dor_abdominal",
+      "pergunta": "O paciente sente dor na barriga?",
+      "opcoes": [
+        {"valor": "nao", "rotulo": "Não, ou dor leve"},
+        {"valor": "intensa", "rotulo": "Dor intensa que não alivia"}
+      ]
+    },
+    {
+      "id": "trauma",
+      "pergunta": "Houve queda, pancada ou acidente?",
+      "opcoes": [
+        {"valor": "nenhum", "rotulo": "Não, ou lesão leve (pequeno corte, torção)"},
+        {"valor": "deformidade", "rotulo": "Suspeita de fratura (deformidade ou não consegue apoiar ou mexer o membro)"},
+        {"valor": "grave", "rotulo": "Acidente de trânsito, queda de altura ou pancada na cabeça com vômito ou desmaio"}
+      ]
+    },
+    {
+      "id": "grupo_risco",
+      "pergunta": "O paciente tem 60 anos ou mais, está grávida ou tem doença crônica (diabetes, hipertensão, doença do coração ou do pulmão)?",
+      "opcoes": [
+        {"valor": "sim", "rotulo": "Sim"},
+        {"valor": "nao", "rotulo": "Não"}
+      ]
+    }
+  ],
+  "derivados": [
+    {
+      "id": "quadro",
+      "descricao": "Quadro de triagem suspeitado a partir dos sinais (hipótese de triagem, não diagnóstico)",
+      "valores": [
+        "rebaixamento_consciencia",
+        "desconforto_respiratorio_grave",
+        "suspeita_cardiaca",
+        "suspeita_avc",
+        "hemorragia_grave",
+        "trauma_grave",
+        "febre_com_alteracao",
+        "dor_abdominal_intensa",
+        "suspeita_fratura",
+        "dor_toracica_inespecifica",
+        "sindrome_febril"
+      ]
+    },
+    {
+      "id": "classificacao",
+      "descricao": "Classificação de risco por cores (protocolo simplificado de 4 níveis)",
+      "valores": ["vermelho", "laranja", "amarelo", "verde"]
+    },
+    {
+      "id": "encaminhamento",
+      "descricao": "Para onde o paciente deve ser encaminhado",
+      "valores": ["sala_de_emergencia", "consultorio_prioritario", "consulta_ambulatorial"]
+    },
+    {
+      "id": "aviso",
+      "descricao": "Orientação imediata à equipe",
+      "valores": ["acionar_equipe_emergencia", "comprimir_sangramento", "imobilizar_paciente"]
+    }
+  ]
+}
