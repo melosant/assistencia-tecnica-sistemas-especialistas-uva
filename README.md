@@ -6,9 +6,15 @@ Protótipo de sistema especialista para o pronto atendimento de uma clínica fic
 
 > **Aviso:** protocolo simplificado e fictício, criado para fins acadêmicos. É uma ferramenta de apoio e não substitui a avaliação de um profissional de saúde.
 
-Contexto de negócio completo: [docs/contexto_negocio.md](docs/contexto_negocio.md).
+## Documentação
 
-Módulos e tasks: [docs/modulos_e_tasks.md](docs/modulos_e_tasks.md).
+| Documento | Conteúdo |
+| --- | --- |
+| [docs/contexto_negocio.md](docs/contexto_negocio.md) | empresa, problema, solução e aviso legal |
+| [docs/arquitetura.md](docs/arquitetura.md) | como o sistema funciona de ponta a ponta e o que faz cada módulo |
+| [docs/motor.md](docs/motor.md) | encadeamento para frente, memória de trabalho, incerteza, conflito e exceções |
+| [docs/dicionario_regras.md](docs/dicionario_regras.md) | todas as perguntas, fatos e as 20 regras (gerado de `kb/`) |
+| [docs/modulos_e_tasks.md](docs/modulos_e_tasks.md) | divisão do trabalho em módulos |
 
 ## Como rodar
 
@@ -34,17 +40,19 @@ kb/                            base de conhecimento, lida de arquivos (sem mexer
   catalogo.json                cores, tempos de espera, textos e ordem de urgência (fictícios)
 sistema_especialista/
   modelos.py                   estruturas de dados
-  base_conhecimento.py         leitura e validação da base            (pronto)
+  base_conhecimento.py         leitura e validação da base             (M1)
   incerteza.py                 fatores de certeza                      (M5)
-  motor.py                     encadeamento para frente                (M2)
+  inferencia.py                encadeamento para frente                (M2)
   explicacao.py                "como" e "por quê"                      (M3)
   terminal.py                  perguntas e respostas no terminal       (M4)
 tests/
   cenarios.json                12 casos de negócio com a conclusão esperada
-  test_base_conhecimento.py    valida a base (já passa)
-  test_incerteza.py            fórmulas de certeza (M5)
-  test_cenarios.py             cenários contra o motor (M2)
-docs/                          contexto de negócio, dicionário de regras, descrição do motor
+  test_base_conhecimento.py    valida a base
+  test_incerteza.py            fórmulas de certeza
+  test_inferencia.py           cenários contra o motor
+  test_explicacao.py           textos do "como" e do "por quê"
+  test_terminal.py             menu, validações, "não sei" e exibição do resultado
+docs/                          contexto de negócio, arquitetura, motor, dicionário de regras
 scripts/gerar_dicionario.py    gera docs/dicionario_regras.md a partir de kb/
 ```
 
@@ -66,11 +74,11 @@ Todo integrante precisa entender **todos** os módulos: no vídeo, o professor p
 | --- | --- | --- | --- |
 | M0 | Repositório, estrutura, README | ______ | concluído |
 | M1 | Base de conhecimento (20 regras, fatos, catálogo) | ______ | concluído |
-| M2 | Motor de inferência (`motor.py`) | ______ | a fazer |
-| M3 | Explicação "como" e "por quê" (`explicacao.py`) | ______ | a fazer |
-| M4 | Interface de terminal (`terminal.py`) | ______ | a fazer |
-| M5 | Diferenciais: incerteza, testes, dados (`incerteza.py`, `tests/`) | ______ | a fazer |
-| M6 | Documentação (`docs/`) | ______ | a fazer |
+| M2 | Motor de inferência (`inferencia.py`) | ______ | concluído |
+| M3 | Explicação "como" e "por quê" (`explicacao.py`) | ______ | concluído |
+| M4 | Interface de terminal (`terminal.py`) | ______ | concluído |
+| M5 | Diferenciais: incerteza, testes, dados (`incerteza.py`, `tests/`) | ______ | concluído |
+| M6 | Documentação (`docs/`) | ______ | concluído |
 | M7 | Vídeo de 9 a 11 min, PDF e envio no Teams | ______ | a fazer |
 
 ## Regras de trabalho do grupo
@@ -79,7 +87,7 @@ Todo integrante precisa entender **todos** os módulos: no vídeo, o professor p
 - **Commits pequenos e frequentes**, com mensagem clara. O professor avalia o histórico para ver a contribuição de cada integrante.
 - Todos usam o nome e o e-mail reais no Git (`git config user.name` e `user.email`).
 - Antes de fazer merge, rode `pytest` e `python main.py`. Aplicação que não roda recebe nota zero.
-- Os testes de `test_incerteza.py` e `test_cenarios.py` estão marcados como `xfail` até os módulos serem implementados. **Remova a linha `pytestmark`** de cada arquivo quando os testes passarem.
+- Alterou algo em `kb/`? Rode `python scripts/gerar_dicionario.py` para atualizar o dicionário.
 
 ## Entrega
 
